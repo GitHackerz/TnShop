@@ -1,0 +1,11 @@
+{
+  "firebaseConfig": {
+    "apiKey": "AIzaSyAhtmwvrxe51dwCddOvs1f04UoX6QqztHs",
+    "authDomain": "tnshop-b3ec5.firebaseapp.com",
+    "projectId": "tnshop-b3ec5",
+    "storageBucket": "tnshop-b3ec5.appspot.com",
+    "messagingSenderId": "370409552842",
+    "appId": "1:370409552842:web:6badaff803bd5441bd6d33",
+    "measurementId": "G-D4JHNERVJC"
+  }
+}
