@@ -13,11 +13,11 @@ export const Main = () => {
               {/* small box */}
               <div className="small-box bg-teal">
                 <div className="inner">
-                  <h3>18 $</h3>
-                  <p>Sales Revenue</p>
+                  <h3 className="text-light">18 $</h3>
+                  <p className="text-light">Sales Revenue</p>
                 </div>
                 <div className="icon">
-                  <i className="ion ion-cash" />
+                  <i className="ion ion-cash text-light" />
                 </div>
                 <a href="/Dashboard/ClientList" className="small-box-footer">
                   More info <i className="fas fa-arrow-circle-right" />
@@ -26,30 +26,30 @@ export const Main = () => {
             </div>
             <div className="col-lg-3 col-6">
               {/* small box */}
-              <div className="small-box bg-orange">
+              <div className="small-box bg-dark">
                 <div className="inner">
-                  <h3>150</h3>
-                  <p>Clients Registered</p>
+                  <h3 className="text-light">150</h3>
+                  <p className="text-light">Clients Registered</p>
                 </div>
                 <div className="icon">
-                  <i className="ion ion-person" />
+                  <i className="ion ion-person text-light" />
                 </div>
-                <Link to="/Dashboard/ClientList" className="small-box-footer">
+                <a href="/Dashboard/ClientList" className="small-box-footer">
                   More info <i className="fas fa-arrow-circle-right" />
-                </Link>
+                </a>
               </div>
             </div>
             {/* ./col */}
             {/* ./col */}
             <div className="col-lg-3 col-6">
               {/* small box */}
-              <div className="small-box bg-orange">
+              <div className="small-box bg-dark">
                 <div className="inner">
                   <h3>10</h3>
-                  <p>Workers Registered</p>
+                  <p className="text-light">Workers Registered</p>
                 </div>
                 <div className="icon">
-                  <i className="ion ion-person" />
+                  <i className="ion ion-person text-light" />
                 </div>
                 <Link to="/dashboard/WorkerList" className="small-box-footer">
                   More info <i className="fas fa-arrow-circle-right" />
@@ -61,15 +61,15 @@ export const Main = () => {
               {/* small box */}
               <div className="small-box bg-info">
                 <div className="inner">
-                  <h3>20</h3>
-                  <p>Number Of Orders</p>
+                  <h3 className="text-light">20</h3>
+                  <p className="text-light">Number Of Orders</p>
                 </div>
                 <div className="icon">
-                  <i className="ion ion-bag" />
+                  <i className="ion ion-bag text-light" />
                 </div>
-                <a href="/dashboard/ordersList" className="small-box-footer">
+                <Link to="/dashboard/ordersList" className="small-box-footer">
                   More info <i className="fas fa-arrow-circle-right" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -78,11 +78,11 @@ export const Main = () => {
               {/* small box */}
               <div className="small-box bg-info">
                 <div className="inner">
-                  <h3>30</h3>
-                  <p>Products On Stock</p>
+                  <h3 className="text-light">30</h3>
+                  <p className="text-light">Products On Stock</p>
                 </div>
                 <div className="icon">
-                  <i className="ion ion-bag" />
+                  <i className="ion ion-bag text-light" />
                 </div>
                 <Link to="/Dashboard/ProductList" className="small-box-footer">
                   More info <i className="fas fa-arrow-circle-right" />
@@ -93,11 +93,11 @@ export const Main = () => {
               {/* small card */}
               <div className="small-box bg-danger">
                 <div className="inner">
-                  <h3>53</h3>
-                  <p>Likes</p>
+                  <h3 className="text-light">53</h3>
+                  <p className="text-light">Likes</p>
                 </div>
                 <div className="icon">
-                  <i className="ion ion-heart" />
+                  <i className="ion ion-heart text-light" />
                 </div>
                 <a href="/Dashboard" className="small-box-footer">
                   More info <i className="fas fa-arrow-circle-right" />
@@ -108,13 +108,13 @@ export const Main = () => {
               {/* small card */}
               <div className="small-box bg-purple">
                 <div className="inner">
-                  <h3>
+                  <h3 className="text-light">
                     53<sup style={{ fontSize: 20 }}>%</sup>
                   </h3>
-                  <p>Bounce Rate</p>
+                  <p className="text-light">Bounce Rate</p>
                 </div>
                 <div className="icon">
-                  <i className="ion ion-stats-bars" />
+                  <i className="ion ion-stats-bars text-light" />
                 </div>
                 <a href="/Dashboard" className="small-box-footer">
                   More info <i className="fas fa-arrow-circle-right" />
@@ -125,11 +125,11 @@ export const Main = () => {
               {/* small card */}
               <div className="small-box bg-danger">
                 <div className="inner">
-                  <h3>53</h3>
-                  <p>Comments</p>
+                  <h3 className="text-light">53</h3>
+                  <p className="text-light">Comments</p>
                 </div>
                 <div className="icon">
-                  <i className="ion ion-chatbubbles" />
+                  <i className="ion ion-chatbubbles text-light" />
                 </div>
                 <a href="/Dashboard" className="small-box-footer">
                   More info <i className="fas fa-arrow-circle-right" />

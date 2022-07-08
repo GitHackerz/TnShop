@@ -83,14 +83,6 @@ h6 {
   margin: 0px;
 }
 
-p {
-  font-family: Poppins-Regular;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #666666;
-  margin: 0px;
-}
-
 ul,
 li {
   margin: 0px;
@@ -98,70 +90,70 @@ li {
 }
 
 /*---------------------------------------------*/
-input {
+.login100-form input {
   outline: none;
   border: none;
 }
 
-textarea {
+.login100-form textarea {
   outline: none;
   border: none;
 }
 
-textarea:focus,
-input:focus {
+.login100-form textarea:focus,
+.login100-form input:focus {
   border-color: transparent !important;
 }
 
-input:focus::-webkit-input-placeholder {
+.login100-form input:focus::-webkit-input-placeholder {
   color: transparent;
 }
-input:focus:-moz-placeholder {
+.login100-form input:focus:-moz-placeholder {
   color: transparent;
 }
-input:focus::-moz-placeholder {
+.login100-form input:focus::-moz-placeholder {
   color: transparent;
 }
-input:focus:-ms-input-placeholder {
-  color: transparent;
-}
-
-textarea:focus::-webkit-input-placeholder {
-  color: transparent;
-}
-textarea:focus:-moz-placeholder {
-  color: transparent;
-}
-textarea:focus::-moz-placeholder {
-  color: transparent;
-}
-textarea:focus:-ms-input-placeholder {
+.login100-form input:focus:-ms-input-placeholder {
   color: transparent;
 }
 
-input::-webkit-input-placeholder {
+.login100-form textarea:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+.login100-form textarea:focus:-moz-placeholder {
+  color: transparent;
+}
+.login100-form textarea:focus::-moz-placeholder {
+  color: transparent;
+}
+.login100-form textarea:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
+.login100-form input::-webkit-input-placeholder {
   color: #999999;
 }
-input:-moz-placeholder {
+.login100-form input:-moz-placeholder {
   color: #999999;
 }
-input::-moz-placeholder {
+.login100-form input::-moz-placeholder {
   color: #999999;
 }
-input:-ms-input-placeholder {
+.login100-form input:-ms-input-placeholder {
   color: #999999;
 }
 
-textarea::-webkit-input-placeholder {
+.login100-form textarea::-webkit-input-placeholder {
   color: #999999;
 }
-textarea:-moz-placeholder {
+.login100-form textarea:-moz-placeholder {
   color: #999999;
 }
-textarea::-moz-placeholder {
+.login100-form textarea::-moz-placeholder {
   color: #999999;
 }
-textarea:-ms-input-placeholder {
+.login100-form textarea:-ms-input-placeholder {
   color: #999999;
 }
 
@@ -217,9 +209,7 @@ iframe {
 
 /*==================================================================
 [ Background ]*/
-.bg1 {
-  background: #3b5998;
-}
+
 .bg2 {
   background: #1da1f2;
 }

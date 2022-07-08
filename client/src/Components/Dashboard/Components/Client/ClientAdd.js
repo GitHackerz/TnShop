@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 
 export const ClientAdd = () => {
-  const [clientCIN, setClientCIN] = React.useState("");
-  const [clientName, setClientName] = React.useState("");
-  const [clientEmail, setClientEmail] = React.useState("");
-  const [clientPhone, setClientPhone] = React.useState("");
-  const [clientAge, setClientAge] = React.useState("");
-  const [Submitted, setSubmitted] = React.useState(0);
+  const [clientCIN, setClientCIN] = useState("");
+  const [clientName, setClientName] = useState("");
+  const [clientEmail, setClientEmail] = useState("");
+  const [clientPhone, setClientPhone] = useState("");
+  const [clientAge, setClientAge] = useState("");
+  const [Submitted, setSubmitted] = useState(0);
   const onSubmitHandler = (event) => {
     event.preventDefault();
     const client = {
@@ -16,7 +16,7 @@ export const ClientAdd = () => {
       clientPhone,
       clientAge,
     };
-    fetch("http://localhost:5000/api/Client/Create", {
+    fetch("http://localhost:4000/api/Client/Create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(client),

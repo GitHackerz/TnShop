@@ -31,7 +31,7 @@ export const ClientList = () => {
     });
   };
   useEffect(() => {
-    fetch("http://localhost:5000/api/Client/List")
+    fetch("http://localhost:4000/api/Client/List")
       .then((res) => res.json())
       .then((data) => setClients(data))
       .catch((err) => console.log(err));
