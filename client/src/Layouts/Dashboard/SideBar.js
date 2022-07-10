@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useUserAuth } from "../Auth/Contexts/UserAuthContext";
-
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import InventoryIcon from "@mui/icons-material/Inventory";
 export const SideBar = () => {
   const { user } = useUserAuth();
   var LoggedInWithGoogle = user.displayName;
@@ -73,19 +74,19 @@ export const SideBar = () => {
               <li className="nav-item"></li>
               <li className="nav-item">
                 <NavLink to="/Dashboard/ClientAdd" className="nav-link">
-                  <i className="nav-icon bi bi-person-plus-fill" />
+                  <PersonAddAlt1Icon />
                   <p>&nbsp;Add Client</p>
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/Dashboard/ProductAdd" className="nav-link">
-                  <i className="nav-icon bi bi-bag-plus-fill" />
+                  <InventoryIcon />
                   <p>&nbsp;Add Product</p>
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/Dashboard/WorkerAdd" className="nav-link">
-                  <i className="nav-icon bi bi-person-lines-fill"></i>
+                  <PersonAddAlt1Icon />
                   <p>&nbsp;Add Worker</p>
                 </NavLink>
               </li>

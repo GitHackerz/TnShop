@@ -19,126 +19,89 @@ export const Main = () => {
     <div>
       <section className="content">
         <div className="container-fluid">
-          {/* Small boxes (Stat box) */}
           <div className="row d-flex justify-content-around">
             <div className="col-lg-3 col-6">
-              <PageCard Title="" Value="" Url="" Color="" />
+              <PageCard
+                Title="Cash Revenue"
+                Value="1500"
+                Url=""
+                Class="small-box bg-teal"
+                Icon="ion ion-cash text-light"
+                type="Cash"
+              />
             </div>
             <div className="col-lg-3 col-6">
-              {/* small box */}
-              <div className="small-box bg-dark">
-                <div className="inner">
-                  <h3 className="text-light">{ClientNumbers}</h3>
-                  <p className="text-light">Clients Registered</p>
-                </div>
-                <div className="icon">
-                  <i className="ion ion-person text-light" />
-                </div>
-                <a href="/Dashboard/ClientList" className="small-box-footer">
-                  More info <i className="fas fa-arrow-circle-right" />
-                </a>
-              </div>
+              <PageCard
+                Class="small-box bg-dark"
+                Title="Clients Registered"
+                Value={ClientNumbers}
+                Icon="ion ion-person text-light"
+                Url="/Dashboard/ClientList"
+              />
             </div>
-            {/* ./col */}
-            {/* ./col */}
             <div className="col-lg-3 col-6">
-              {/* small box */}
-              <div className="small-box bg-dark">
-                <div className="inner">
-                  <h3>10</h3>
-                  <p className="text-light">Workers Registered</p>
-                </div>
-                <div className="icon">
-                  <i className="ion ion-person text-light" />
-                </div>
-                <Link to="/dashboard/WorkerList" className="small-box-footer">
-                  More info <i className="fas fa-arrow-circle-right" />
-                </Link>
-              </div>
+              <PageCard
+                Class="small-box bg-dark"
+                Title="Workers Registered"
+                Value="10"
+                Icon="ion ion-person text-light"
+                Url="/Dashboard/WorkerList"
+              />
             </div>
-            {/* ./col */}
+
             <div className="col-lg-3 col-6">
-              {/* small box */}
-              <div className="small-box bg-info">
-                <div className="inner">
-                  <h3 className="text-light">20</h3>
-                  <p className="text-light">Number Of Orders</p>
-                </div>
-                <div className="icon">
-                  <i className="ion ion-bag text-light" />
-                </div>
-                <Link to="/dashboard/ordersList" className="small-box-footer">
-                  More info <i className="fas fa-arrow-circle-right" />
-                </Link>
-              </div>
+              <PageCard
+                Class="small-box bg-info"
+                Title="Products On Stock"
+                Value="30"
+                Icon="ion ion-bag text-light"
+                Url="/Dashboard/ProductList"
+              />
             </div>
           </div>
           <div className="row d-flex justify-content-around">
             <div className="col-lg-3 col-6">
-              {/* small box */}
-              <div className="small-box bg-info">
-                <div className="inner">
-                  <h3 className="text-light">30</h3>
-                  <p className="text-light">Products On Stock</p>
-                </div>
-                <div className="icon">
-                  <i className="ion ion-bag text-light" />
-                </div>
-                <Link to="/Dashboard/ProductList" className="small-box-footer">
-                  More info <i className="fas fa-arrow-circle-right" />
-                </Link>
-              </div>
+              <PageCard
+                Class="small-box bg-info"
+                Title="Number Of Orders"
+                Value="20"
+                Icon="ion ion-bag text-light"
+                Url="/Dashboard/ordersList"
+              />
             </div>
+
             <div className="col-lg-3 col-6">
-              {/* small card */}
-              <div className="small-box bg-danger">
-                <div className="inner">
-                  <h3 className="text-light">53</h3>
-                  <p className="text-light">Likes</p>
-                </div>
-                <div className="icon">
-                  <i className="ion ion-heart text-light" />
-                </div>
-                <a href="/Dashboard" className="small-box-footer">
-                  More info <i className="fas fa-arrow-circle-right" />
-                </a>
-              </div>
+              <PageCard
+                Class="small-box bg-danger"
+                Title="Likes"
+                Value="53"
+                Icon="ion ion-heart text-light"
+                Url="/Dashboard"
+              />
             </div>
+
             <div className="col-lg-3 col-6">
-              {/* small card */}
-              <div className="small-box bg-purple">
-                <div className="inner">
-                  <h3 className="text-light">
-                    53<sup style={{ fontSize: 20 }}>%</sup>
-                  </h3>
-                  <p className="text-light">Bounce Rate</p>
-                </div>
-                <div className="icon">
-                  <i className="ion ion-stats-bars text-light" />
-                </div>
-                <a href="/Dashboard" className="small-box-footer">
-                  More info <i className="fas fa-arrow-circle-right" />
-                </a>
-              </div>
+              <PageCard
+                Class="small-box bg-danger"
+                Title="Comments"
+                Value="53"
+                Icon="ion ion-chatbubbles text-light"
+                Url="/Dashboard"
+              />
             </div>
+
             <div className="col-lg-3 col-6">
-              {/* small card */}
-              <div className="small-box bg-danger">
-                <div className="inner">
-                  <h3 className="text-light">53</h3>
-                  <p className="text-light">Comments</p>
-                </div>
-                <div className="icon">
-                  <i className="ion ion-chatbubbles text-light" />
-                </div>
-                <a href="/Dashboard" className="small-box-footer">
-                  More info <i className="fas fa-arrow-circle-right" />
-                </a>
-              </div>
+              <PageCard
+                Class="small-box bg-purple"
+                Title="Bounce Rate"
+                Value="53"
+                Icon="ion ion-stats-bars text-light"
+                Url="/Dashboard"
+                type="Pourc"
+              />
             </div>
           </div>
         </div>
-        {/* /.container-fluid */}
       </section>
     </div>
   );
