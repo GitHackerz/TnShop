@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { useUserAuth } from "../Auth/Contexts/UserAuthContext";
+import { useUserAuth } from "../../Components/Auth/Contexts/UserAuthContext";
 
 export const SideBar = () => {
   const { user } = useUserAuth();

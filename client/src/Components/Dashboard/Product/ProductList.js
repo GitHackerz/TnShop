@@ -31,7 +31,7 @@ export const ProductList = () => {
     });
   };
   useEffect(() => {
-    fetch("http://localhost:5000/api/Product/List")
+    fetch("/api/Product/List")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.log(err));

@@ -38,4 +38,17 @@ router.post("/Create", (req, res) => {
     });
 });
 
+router.get("/Delete/:_id", (req, res) => {
+  res.send("Deleting Client ...");
+  Client.deleteOne({ _id: req.params._id }, (err) => {
+    if (err) return console.log(err);
+  });
+});
+
+router.get("/GetClientNumbers", (req, res) => {
+  Client.countDocuments({}, (err, count) => {
+    if (err) return console.log(err);
+    res.json(count);
+  })
+});
 module.exports = router;

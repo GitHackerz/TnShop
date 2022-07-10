@@ -1,15 +1,14 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { ClientList } from "./Components/Client/ClientList";
-import { Main } from "./Components/Main";
+import { Routes, Route,Link } from "react-router-dom";
+import { Main } from "../../Components/Dashboard/Main";
 import { NavBar } from "./NavBar";
 import { SideBar } from "./SideBar";
-import { Link } from "react-router-dom";
-import { ClientAdd } from "./Components/Client/ClientAdd";
-import { ProductList } from "./Components/Product/ProductList";
-import { ProductAdd } from "./Components/Product/ProductAdd";
-import { WorkerList } from "./Components/Worker/WorkerList";
-import { WorkerAdd } from "./Components/Worker/WorkerAdd";
+import { ClientList } from "../../Components/Dashboard/Client/ClientList";
+import { ClientAdd } from "../../Components/Dashboard/Client/ClientAdd";
+import { ProductList } from "../../Components/Dashboard/Product/ProductList";
+import { ProductAdd } from "../../Components/Dashboard/Product/ProductAdd";
+import { WorkerList } from "../../Components/Dashboard/Worker/WorkerList";
+import { WorkerAdd } from "../../Components/Dashboard/Worker/WorkerAdd";
 
 export const Dashboard = () => {
   return (

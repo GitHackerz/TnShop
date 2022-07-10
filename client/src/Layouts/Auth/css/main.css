@@ -157,7 +157,7 @@ li {
   color: #999999;
 }
 
-label {
+.login100-form label {
   display: block;
   margin: 0;
 }

@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-// import { SalesChart } from "./SalesChart";
-
+import { Paper } from "@mui/material";
 export const Main = () => {
+  const [ClientNumbers, setClientNumbers] = React.useState(0);
+  const getClientNumbers = () => {
+    fetch("/api/Client/GetClientNumbers")
+      .then((res) => res.json())
+      .then((data) => setClientNumbers(data))
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getClientNumbers();
+  });
+
   return (
     <div>
       <section className="content">
@@ -10,8 +21,7 @@ export const Main = () => {
           {/* Small boxes (Stat box) */}
           <div className="row d-flex justify-content-around">
             <div className="col-lg-3 col-6">
-              {/* small box */}
-              <div className="small-box bg-teal">
+              <Paper className="small-box bg-teal" elevation={8}>
                 <div className="inner">
                   <h3 className="text-light">18 $</h3>
                   <p className="text-light">Sales Revenue</p>
@@ -22,13 +32,13 @@ export const Main = () => {
                 <a href="/Dashboard/ClientList" className="small-box-footer">
                   More info <i className="fas fa-arrow-circle-right" />
                 </a>
-              </div>
+              </Paper>
             </div>
             <div className="col-lg-3 col-6">
               {/* small box */}
               <div className="small-box bg-dark">
                 <div className="inner">
-                  <h3 className="text-light">150</h3>
+                  <h3 className="text-light">{ClientNumbers}</h3>
                   <p className="text-light">Clients Registered</p>
                 </div>
                 <div className="icon">

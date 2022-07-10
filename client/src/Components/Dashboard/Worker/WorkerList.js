@@ -9,8 +9,8 @@ import "datatables.net-buttons/js/buttons.print.js";
 
 import $ from "jquery";
 
-export const ClientList = () => {
-  const [clients, setClients] = useState([]);
+export const WorkerList = () => {
+  const [workers, setWorkers] = useState([]);
 
   const DataTableJquery = () => {
     $(document).ready(function() {
@@ -31,9 +31,9 @@ export const ClientList = () => {
     });
   };
   useEffect(() => {
-    fetch("http://localhost:4000/api/Client/List")
+    fetch("/api/Worker/List")
       .then((res) => res.json())
-      .then((data) => setClients(data))
+      .then((data) => setWorkers(data))
       .catch((err) => console.log(err));
     DataTableJquery();
   }, []);
@@ -46,9 +46,7 @@ export const ClientList = () => {
             <div className="col-12">
               <div className="card">
                 <div className="card-header">
-                  <h3 className="card-title">
-                    DataTable with default features
-                  </h3>
+                  <h3 className="card-title">Workers List</h3>
                 </div>
                 <div className="card-body">
                   <table
@@ -65,14 +63,14 @@ export const ClientList = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {clients.map((client) => {
+                      {workers.map((worker) => {
                         return (
-                          <tr key={client._id}>
-                            <td>{client.CIN}</td>
-                            <td>{client.Name}</td>
-                            <td>{client.Email}</td>
-                            <td>{client.PhoneNumber}</td>
-                            <td>{client.Age}</td>
+                          <tr key={worker.id}>
+                            <td>{worker.CIN}</td>
+                            <td>{worker.Name}</td>
+                            <td>{worker.Email}</td>
+                            <td>{worker.PhoneNumber}</td>
+                            <td>{worker.Age}</td>
                           </tr>
                         );
                       })}

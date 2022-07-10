@@ -1,25 +1,21 @@
 import React from "react";
 
-export const WorkerAdd = () => {
-  const [workerCIN, setWorkerCIN] = React.useState("");
-  const [workerName, setWorkerName] = React.useState("");
-  const [workerEmail, setWorkerEmail] = React.useState("");
-  const [workerPhone, setWorkerPhone] = React.useState("");
-  const [workerAge, setWorkerAge] = React.useState("");
+export const ProductAdd = () => {
+  const [productName, setProductName] = React.useState("");
+  const [productPrice, setProductPrice] = React.useState("");
+  const [productQuantity, setProductQuantity] = React.useState("");
   const [Submitted, setSubmitted] = React.useState(0);
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    const worker = {
-      workerCIN,
-      workerName,
-      workerEmail,
-      workerPhone,
-      workerAge,
+    const product = {
+      productName,
+      productPrice,
+      productQuantity,
     };
-    fetch("http://localhost:5000/api/Worker/Create", {
+    fetch("/api/Product/Create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(worker),
+      body: JSON.stringify(product),
     })
       .then((res) => {
         res.json();
@@ -36,65 +32,43 @@ export const WorkerAdd = () => {
       <div className="bg1 col pt-5">
         <div className="card card-danger">
           <div className="card-header bg-primary pt-4">
-            <h4 className="text-center">Add Worker</h4>
+            <h4 className="text-center">Add Product</h4>
           </div>
           <div className="card-body ">
             <form onSubmit={onSubmitHandler}>
               <div className="card-body">
                 <div className="form-group">
-                  <label>CIN</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    placeholder="Enter CIN"
-                    required
-                    autoFocus
-                    value={workerCIN}
-                    onChange={(e) => setWorkerCIN(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>FullName</label>
+                  <label>Name</label>
                   <input
                     type="text"
                     className="form-control"
                     placeholder="Enter Name"
                     required
-                    value={workerName}
-                    onChange={(e) => setWorkerName(e.target.value)}
+                    value={productName}
+                    onChange={(e) => setProductName(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
-                  <label>Age</label>
+                  <label>Quantity</label>
                   <input
                     type="number"
                     className="form-control"
-                    placeholder="Enter Age"
+                    placeholder="Enter Quantity"
                     required
-                    value={workerAge}
-                    onChange={(e) => setWorkerAge(e.target.value)}
+                    value={productQuantity}
+                    onChange={(e) => setProductQuantity(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
-                  <label>Email</label>
+                  <label>Price</label>
                   <input
-                    type="email"
+                    type="number"
+                    step={0.01}
                     className="form-control"
-                    placeholder="Enter Email"
+                    placeholder="Enter Price"
                     required
-                    value={workerEmail}
-                    onChange={(e) => setWorkerEmail(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Phone</label>
-                  <input
-                    type="integer"
-                    className="form-control"
-                    placeholder="Enter Phone Number"
-                    required
-                    value={workerPhone}
-                    onChange={(e) => setWorkerPhone(e.target.value)}
+                    value={productPrice}
+                    onChange={(e) => setProductPrice(e.target.value)}
                   />
                 </div>
                 <div className="d-flex justify-content-center">
@@ -110,7 +84,7 @@ export const WorkerAdd = () => {
           <div className="card-footer bg-success">
             <h5 className="text-center">
               <i className="icon fas fa-check-circle" />
-              &nbsp;&nbsp;Worker Added
+              &nbsp;&nbsp;Product Added
             </h5>
           </div>
         )}
@@ -118,7 +92,7 @@ export const WorkerAdd = () => {
           <div className="card-footer bg-danger">
             <h5 className="text-center">
               <i className="icon fas fa-ban" />
-              &nbsp;&nbsp;Error While Adding Worker
+              &nbsp;&nbsp;Error While Adding Product
             </h5>
           </div>
         )}

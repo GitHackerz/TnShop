@@ -8,9 +8,8 @@ import "datatables.net-buttons/js/buttons.html5.js";
 import "datatables.net-buttons/js/buttons.print.js";
 
 import $ from "jquery";
-
-export const WorkerList = () => {
-  const [workers, setWorkers] = useState([]);
+export const ClientList = () => {
+  const [clients, setClients] = useState([]);
 
   const DataTableJquery = () => {
     $(document).ready(function() {
@@ -30,13 +29,25 @@ export const WorkerList = () => {
       }, 100);
     });
   };
+
   useEffect(() => {
-    fetch("http://localhost:5000/api/Worker/List")
-      .then((res) => res.json())
-      .then((data) => setWorkers(data))
-      .catch((err) => console.log(err));
+    ClientsList();
     DataTableJquery();
   }, []);
+
+  const ClientsList = async () => {
+    await fetch("/api/Client/List")
+      .then((res) => res.json())
+      .then((data) => setClients(data))
+      .catch((err) => console.log(err));
+  };
+  const DeleteClient = async (_id) => {
+    await fetch(`/api/Client/Delete/${_id}`)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+    ClientsList();
+  };
 
   return (
     <div>
@@ -46,7 +57,9 @@ export const WorkerList = () => {
             <div className="col-12">
               <div className="card">
                 <div className="card-header">
-                  <h3 className="card-title">Workers List</h3>
+                  <h3 className="card-title">
+                    DataTable with default features
+                  </h3>
                 </div>
                 <div className="card-body">
                   <table
@@ -60,17 +73,30 @@ export const WorkerList = () => {
                         <th>Email</th>
                         <th>PhoneNumber</th>
                         <th>Age</th>
+                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {workers.map((worker) => {
+                      {clients.map((client) => {
                         return (
-                          <tr key={worker.id}>
-                            <td>{worker.CIN}</td>
-                            <td>{worker.Name}</td>
-                            <td>{worker.Email}</td>
-                            <td>{worker.PhoneNumber}</td>
-                            <td>{worker.Age}</td>
+                          <tr key={client._id}>
+                            <td>{client.CIN}</td>
+                            <td>{client.Name}</td>
+                            <td>{client.Email}</td>
+                            <td>{client.PhoneNumber}</td>
+                            <td>{client.Age}</td>
+                            <td className="d-flex justify-content-around">
+                              <button type="button" className="btn btn-warning">
+                                Update
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={() => DeleteClient(client._id)}
+                              >
+                                Delete
+                              </button>
+                            </td>
                           </tr>
                         );
                       })}
@@ -82,6 +108,7 @@ export const WorkerList = () => {
                         <th>Email</th>
                         <th>PhoneNumber</th>
                         <th>Age</th>
+                        <th>Actions</th>
                       </tr>
                     </tfoot>
                   </table>
