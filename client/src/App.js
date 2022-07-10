@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./Components/Auth/Login";
-import Signup from "./Components/Auth/Signup";
+import Login from "./Layouts/Auth/Login";
+import Signup from "./Layouts/Auth/Signup";
 import { Dashboard } from "./Layouts/Dashboard/Dashboard";
-import { UserAuthContextProvider } from "./Components/Auth/Contexts/UserAuthContext";
-import ProtectedRoute from "./Components/Auth/ProtectedRoute";
+import { UserAuthContextProvider } from "./Layouts/Auth/Contexts/UserAuthContext";
+import ProtectedRoute from "./Layouts/Auth/ProtectedRoute";
 
 export const App = () => {
   return (

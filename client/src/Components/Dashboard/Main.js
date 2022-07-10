@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Paper } from "@mui/material";
+import PageCard from "./PageCard";
+
 export const Main = () => {
   const [ClientNumbers, setClientNumbers] = React.useState(0);
   const getClientNumbers = () => {
@@ -21,18 +22,7 @@ export const Main = () => {
           {/* Small boxes (Stat box) */}
           <div className="row d-flex justify-content-around">
             <div className="col-lg-3 col-6">
-              <Paper className="small-box bg-teal" elevation={8}>
-                <div className="inner">
-                  <h3 className="text-light">18 $</h3>
-                  <p className="text-light">Sales Revenue</p>
-                </div>
-                <div className="icon">
-                  <i className="ion ion-cash text-light" />
-                </div>
-                <a href="/Dashboard/ClientList" className="small-box-footer">
-                  More info <i className="fas fa-arrow-circle-right" />
-                </a>
-              </Paper>
+              <PageCard Title="" Value="" Url="" Color="" />
             </div>
             <div className="col-lg-3 col-6">
               {/* small box */}
