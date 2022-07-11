@@ -35,4 +35,29 @@ router.post("/Create", (req, res) => {
     });
 });
 
+router.get("/GetWorkerNumbers", (req, res) => {
+  Worker.countDocuments({}, (err, count) => {
+    if (err) return console.log(err);
+    res.json(count);
+  });
+});
+
+router.get("/GetById/:id", (req, res) => {
+  Worker.findById(req.params.id, (err, worker) => {
+    if (err) return console.log(err);
+    res.json(worker);
+  });
+});
+
+router.post("/Update", async (req, res) => {
+  let worker = await Worker.findOne({ _id: req.body.workerId });
+  const update = {
+    Name: req.body.workerName,
+    Age: Number(req.body.workerAge),
+    PhoneNumber: req.body.workerPhone,
+    Email: req.body.workerEmail,
+  };
+  await worker.updateOne(update);
+  res.json(worker);
+});
 module.exports = router;

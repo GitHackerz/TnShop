@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route,Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { Main } from "../../Components/Dashboard/Main";
 import { NavBar } from "./NavBar";
 import { SideBar } from "./SideBar";
@@ -9,7 +9,8 @@ import { ProductList } from "../../Components/Dashboard/Product/ProductList";
 import { ProductAdd } from "../../Components/Dashboard/Product/ProductAdd";
 import { WorkerList } from "../../Components/Dashboard/Worker/WorkerList";
 import { WorkerAdd } from "../../Components/Dashboard/Worker/WorkerAdd";
-
+import { ClientUpdate } from "../../Components/Dashboard/Client/ClientUpdate";
+import { WorkerUpdate } from "../../Components/Dashboard/Worker/WorkerUpdate";
 export const Dashboard = () => {
   return (
     <div className="wrapper">
@@ -44,8 +45,10 @@ export const Dashboard = () => {
           <Route index element={<Main />} />
           <Route path="ClientList" element={<ClientList />} />
           <Route path="ClientAdd" element={<ClientAdd />} />
+          <Route path="ClientUpdate/:id" element={<ClientUpdate />} />
           <Route path="WorkerList" element={<WorkerList />} />
           <Route path="WorkerAdd" element={<WorkerAdd />} />
+          <Route path="WorkerUpdate/:id" element={<WorkerUpdate />} />
           <Route path="ProductList" element={<ProductList />} />
           <Route path="ProductAdd" element={<ProductAdd />} />
         </Routes>

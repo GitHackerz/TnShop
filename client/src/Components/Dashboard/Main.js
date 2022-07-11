@@ -1,18 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PageCard from "./PageCard";
 
 export const Main = () => {
-  const [ClientNumbers, setClientNumbers] = React.useState(0);
-  const getClientNumbers = () => {
-    fetch("/api/Client/GetClientNumbers")
+  const [ClientNumbers, setClientNumbers] = useState(0);
+  const [WorkerNumbers, setWorkerNumbers] = useState(0);
+  const getClientNumbers = async () => {
+     fetch("/api/Client/GetClientNumbers")
       .then((res) => res.json())
       .then((data) => setClientNumbers(data))
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    getClientNumbers();
+  const getWorkerNumbers =  () => {
+     fetch("/api/Worker/GetWorkerNumbers")
+      .then((res) => res.json())
+      .then((data) => setWorkerNumbers(data))
+      .catch((err) => console.log(err));
+  };
+
+  useEffect( () => {
+     getClientNumbers();
+     getWorkerNumbers();
   });
 
   return (
@@ -43,7 +52,7 @@ export const Main = () => {
               <PageCard
                 Class="small-box bg-dark"
                 Title="Workers Registered"
-                Value="10"
+                Value={WorkerNumbers}
                 Icon="ion ion-person text-light"
                 Url="/Dashboard/WorkerList"
               />

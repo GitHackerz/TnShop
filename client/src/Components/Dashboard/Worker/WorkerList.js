@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import $ from "jquery";
+import { Link } from "react-router-dom";
 
 import "jquery";
 import "datatables.net-bs5";
@@ -6,8 +8,6 @@ import "datatables.net-buttons-bs5";
 import "datatables.net-buttons/js/buttons.colVis.js";
 import "datatables.net-buttons/js/buttons.html5.js";
 import "datatables.net-buttons/js/buttons.print.js";
-
-import $ from "jquery";
 
 export const WorkerList = () => {
   const [workers, setWorkers] = useState([]);
@@ -30,12 +30,28 @@ export const WorkerList = () => {
       }, 100);
     });
   };
-  useEffect(() => {
-    fetch("/api/Worker/List")
+
+  const WorkersList = async () => {
+    await fetch("/api/Worker/List")
       .then((res) => res.json())
       .then((data) => setWorkers(data))
       .catch((err) => console.log(err));
-    DataTableJquery();
+  };
+
+  const DeleteWorker = async (_id) => {
+    await fetch(`/api/Worker/Delete/${_id}`)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+    WorkersList();
+  };
+
+  useEffect(() => {
+    const SyncLoad = async () => {
+      await WorkersList();
+      DataTableJquery();
+    };
+    SyncLoad();
   }, []);
 
   return (
@@ -60,6 +76,7 @@ export const WorkerList = () => {
                         <th>Email</th>
                         <th>PhoneNumber</th>
                         <th>Age</th>
+                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -71,6 +88,25 @@ export const WorkerList = () => {
                             <td>{worker.Email}</td>
                             <td>{worker.PhoneNumber}</td>
                             <td>{worker.Age}</td>
+                            <td className="d-flex justify-content-around">
+                              <Link
+                                to={`/Dashboard/WorkerUpdate/${worker._id}`}
+                              >
+                                <button
+                                  type="button"
+                                  className="btn btn-warning"
+                                >
+                                  Update
+                                </button>
+                              </Link>
+                              <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={() => DeleteWorker(worker._id)}
+                              >
+                                Delete
+                              </button>
+                            </td>
                           </tr>
                         );
                       })}
@@ -82,6 +118,7 @@ export const WorkerList = () => {
                         <th>Email</th>
                         <th>PhoneNumber</th>
                         <th>Age</th>
+                        <th>Actions</th>
                       </tr>
                     </tfoot>
                   </table>

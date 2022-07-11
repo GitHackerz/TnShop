@@ -49,6 +49,25 @@ router.get("/GetClientNumbers", (req, res) => {
   Client.countDocuments({}, (err, count) => {
     if (err) return console.log(err);
     res.json(count);
-  })
+  });
+});
+
+router.get("/GetById/:id", (req, res) => {
+  Client.findById(req.params.id, (err, client) => {
+    if (err) return console.log(err);
+    res.json(client);
+  });
+});
+
+router.post("/Update", async (req, res) => {
+  let client = await Client.findOne({ _id: req.body.clientId });
+  const update = {
+    Name: req.body.clientName,
+    Age: Number(req.body.clientAge),
+    PhoneNumber: req.body.clientPhone,
+    Email: req.body.clientEmail,
+  };
+  await client.updateOne(update);
+  res.json(client);
 });
 module.exports = router;
