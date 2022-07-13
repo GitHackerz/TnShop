@@ -13,6 +13,11 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  Likes: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("Product", ProductSchema);

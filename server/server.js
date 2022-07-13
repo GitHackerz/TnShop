@@ -10,7 +10,8 @@ const functions = require("./functions");
 const clientRouter = require("./Routes/Client");
 const workerRouter = require("./Routes/Worker");
 const productRouter = require("./Routes/Product");
-
+const orderRouter = require("./Routes/Order");
+const feedbackRouter = require("./Routes/Feedback");
 const app = express();
 
 //Import the Secret Variables
@@ -40,3 +41,5 @@ app.listen(PORT, () => {
 app.use("/api/Client", clientRouter);
 app.use("/api/Worker", workerRouter);
 app.use("/api/Product", productRouter);
+app.use("/api/Order", orderRouter);
+app.use("/api/Feedback", feedbackRouter);
