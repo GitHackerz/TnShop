@@ -1,12 +1,23 @@
 import { Paper } from "@mui/material";
 import React from "react";
-import ProductDetails from "./ProductDetails";
 
 const Product = (props) => {
+
+  const showDetails = async () => {
+    await props.setProdDet({
+      Title: props.Title,
+      Price: props.Price,
+      ImgURL: props.ImgURL,
+      Size: ["S", "M", "L", "XL"],
+      Color: ["Red", "Blue", "Green", "Yellow"],
+      Description: "NoneDesc",
+    });
+  };
+
   return (
     <div>
       <Paper
-        elevation="10"
+        elevation={10}
         className="rounderd"
         style={{ borderRadius: "15px", padding: "10px" }}
       >
@@ -17,7 +28,10 @@ const Product = (props) => {
               alt="IMG-PRODUCT"
               style={{ borderRadius: "15px" }}
             />
-            <a href="/" className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+            <a
+              className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
+              onClick={showDetails}
+            >
               Quick View
             </a>
           </div>
@@ -51,7 +65,6 @@ const Product = (props) => {
           </div>
         </div>
       </Paper>
-      <ProductDetails />
     </div>
   );
 };

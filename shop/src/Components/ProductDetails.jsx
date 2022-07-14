@@ -4,13 +4,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-const ProductDetails = () => {
-  const [size, setSize] = useState("");
-  const [color, setColor] = useState("");
+const ProductDetails = (props) => {
+  const [size, setSize] = useState([]);
+  const [color, setColor] = useState([]);
 
   return (
     <div>
-      <div className="wrap-modal1 js-modal1 p-t-60 p-b-20">
+      <div className="wrap-modal1 js-modal1 p-t-60 p-b-20 ">
         <div className="overlay-modal1 js-hide-modal1" />
         <div className="container">
           <div className="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
@@ -21,59 +21,16 @@ const ProductDetails = () => {
               <div className="col-md-6 col-lg-7 p-b-30">
                 <div className="p-l-25 p-r-30 p-lr-0-lg">
                   <div className="wrap-slick3 flex-sb flex-w">
-                    <div className="wrap-slick3-dots" />
                     <div className="wrap-slick3-arrows flex-sb-m flex-w" />
                     <div className="slick3 gallery-lb">
-                      <div
-                        className="item-slick3"
-                        data-thumb="images/product-detail-01.jpg"
-                      >
-                        <div className="wrap-pic-w pos-relative">
-                          <img
-                            src="images/product-detail-01.jpg"
-                            alt="IMG-PRODUCT"
-                          />
-                          <a
-                            className="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                            href="images/product-detail-01.jpg"
-                          >
-                            <i className="fa fa-expand" />
-                          </a>
-                        </div>
-                      </div>
-                      <div
-                        className="item-slick3"
-                        data-thumb="images/product-detail-02.jpg"
-                      >
-                        <div className="wrap-pic-w pos-relative">
-                          <img
-                            src="images/product-detail-02.jpg"
-                            alt="IMG-PRODUCT"
-                          />
-                          <a
-                            className="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                            href="images/product-detail-02.jpg"
-                          >
-                            <i className="fa fa-expand" />
-                          </a>
-                        </div>
-                      </div>
-                      <div
-                        className="item-slick3"
-                        data-thumb="images/product-detail-03.jpg"
-                      >
-                        <div className="wrap-pic-w pos-relative">
-                          <img
-                            src="images/product-detail-03.jpg"
-                            alt="IMG-PRODUCT"
-                          />
-                          <a
-                            className="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                            href="images/product-detail-03.jpg"
-                          >
-                            <i className="fa fa-expand" />
-                          </a>
-                        </div>
+                      <div className="wrap-pic-w pos-relative">
+                        <img src={props.ImgURL} alt="IMG-PRODUCT" />
+                        <a
+                          className="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                          href={props.ImgURL}
+                        >
+                          <i className="fa fa-expand" />
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -82,13 +39,10 @@ const ProductDetails = () => {
               <div className="col-md-6 col-lg-5 p-b-30">
                 <div className="p-r-50 p-t-5 p-lr-0-lg">
                   <h4 className="mtext-105 cl2 js-name-detail p-b-14">
-                    Lightweight Jacket
+                    {props.Title}
                   </h4>
-                  <span className="mtext-106 cl2"> $58.79 </span>
-                  <p className="stext-102 cl3 p-t-23">
-                    Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus
-                    ligula. Mauris consequat ornare feugiat.
-                  </p>
+                  <span className="mtext-106 cl2"> ${props.Price} </span>
+                  <p className="stext-102 cl3 p-t-23">{props.Description}</p>
                   <div className="p-t-33">
                     <div className="flex-w flex-r-m p-b-10">
                       <div className="size-203 flex-c-m respon6">Size</div>
@@ -106,9 +60,13 @@ const ProductDetails = () => {
                               label="Size"
                               onChange={(e) => setSize(e.target.value)}
                             >
-                              <MenuItem value="s">Size S</MenuItem>
-                              <MenuItem value="m">Size M</MenuItem>
-                              <MenuItem value="l">Size L</MenuItem>
+                              {props.Size.map((size, index) => {
+                                return (
+                                  <MenuItem key={index} value={size}>
+                                    Size {size}
+                                  </MenuItem>
+                                );
+                              })}
                             </Select>
                           </FormControl>
 
@@ -132,9 +90,13 @@ const ProductDetails = () => {
                               label="Choose an option"
                               onChange={(e) => setColor(e.target.value)}
                             >
-                              <MenuItem value="Red">Red</MenuItem>
-                              <MenuItem value="Blue">Blue</MenuItem>
-                              <MenuItem value="White">White</MenuItem>
+                              {props.Color.map((color, index) => {
+                                return (
+                                  <MenuItem key={index} value={color}>
+                                    {color}
+                                  </MenuItem>
+                                );
+                              })}
                             </Select>
                           </FormControl>
 

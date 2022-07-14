@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Product from "../Components/Product";
+import ProductDetails from "../Components/ProductDetails";
+
 const ProductOverview = () => {
+  const [prodDet, setProdDet] = useState({
+    Title: "None Title",
+    Price: "NaN",
+    ImgURL: "NoneImg",
+    Size: [],
+    Color: [],
+    Description: "NoneDesc",
+  });
+
   return (
     <div>
       <section className="bg0 p-t-23 p-b-140">
@@ -271,6 +282,7 @@ const ProductOverview = () => {
                 Title="Esprit Ruffle Shirt"
                 Price="16.64"
                 ImgURL="/images/product-01.jpg"
+                setProdDet={setProdDet}
               ></Product>
             </div>
             <div className="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
@@ -278,6 +290,7 @@ const ProductOverview = () => {
                 Title="Herschel supply"
                 Price="35.31"
                 ImgURL="/images/product-02.jpg"
+                setProdDet={setProdDet}
               ></Product>
             </div>
           </div>
@@ -292,6 +305,15 @@ const ProductOverview = () => {
           </div>
         </div>
       </section>
+
+      <ProductDetails
+        Title={prodDet.Title}
+        Price={prodDet.Price}
+        ImgURL={prodDet.ImgURL}
+        Size={prodDet.Size}
+        Color={prodDet.Color}
+        Description={"Description"}
+      />
     </div>
   );
 };
