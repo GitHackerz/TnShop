@@ -13,6 +13,23 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  ImgURL: {
+    type: String,
+    required: true,
+  },
+  Color: {
+    type: String,
+    required: true,
+  },
+  Size: {
+    type: String,
+    required: true,
+  },
+  Type: {
+    type: String,
+    enum: ["Men", "Women", "AccessoriesMen", "AccessoriesWomen"],
+    required: true,
+  },
   Likes: {
     type: Number,
     required: true,

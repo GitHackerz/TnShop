@@ -2,30 +2,25 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./Layout/Header";
-import Cart from "./Layout/Cart";
-import Slider1 from "./Layout/Slider";
-import Banner from "./Layout/Banner";
-import ProductOverview from "./Layout/ProductOverview";
 import Footer from "./Layout/Footer";
+import Home from "./pages/Home";
+import ManProds from "./pages/ManProds";
+import WomenProds from "./pages/WomenProds";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
         <Header />
-        <Cart />
-        <Slider1 />
-        <Banner />
-        <ProductOverview />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/*">
+            <Route path="ManProducts" element={<ManProds />} />
+            <Route path="WomenProducts" element={<WomenProds />} />
+          </Route>
+        </Routes>
         <Footer />
       </BrowserRouter>
-
-      {/* <BrowserRouter>
-        <Routes>
-          <Route path="/" element={< />} />
-          
-        </Routes>
-      </BrowserRouter> */}
     </div>
   );
 };

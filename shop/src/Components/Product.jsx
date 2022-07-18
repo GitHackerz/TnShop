@@ -2,7 +2,6 @@ import { Paper } from "@mui/material";
 import React from "react";
 
 const Product = (props) => {
-
   const showDetails = async () => {
     await props.setProdDet({
       Title: props.Title,
@@ -11,6 +10,8 @@ const Product = (props) => {
       Size: ["S", "M", "L", "XL"],
       Color: ["Red", "Blue", "Green", "Yellow"],
       Description: "NoneDesc",
+      ClientId: props.clientId,
+      ProductId: props.productId,
     });
   };
 
@@ -28,12 +29,12 @@ const Product = (props) => {
               alt="IMG-PRODUCT"
               style={{ borderRadius: "15px" }}
             />
-            <a
+            <button
               className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
               onClick={showDetails}
             >
               Quick View
-            </a>
+            </button>
           </div>
           <div className="block2-txt flex-w flex-t p-t-14">
             <div className="block2-txt-child1 flex-col-l">

@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const Slider1 = () => {
+const MainSlider = () => {
   const [sliderRef, setSliderRef] = useState(null);
 
   var settings = {
@@ -163,4 +163,4 @@ const Slider1 = () => {
   );
 };
 
-export default Slider1;
+export default MainSlider;

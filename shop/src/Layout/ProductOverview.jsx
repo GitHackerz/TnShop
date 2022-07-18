@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Product from "../Components/Product";
 import ProductDetails from "../Components/ProductDetails";
-
 const ProductOverview = () => {
   const [prodDet, setProdDet] = useState({
     Title: "None Title",
@@ -10,7 +9,35 @@ const ProductOverview = () => {
     Size: [],
     Color: [],
     Description: "NoneDesc",
+    ClientId: "",
+    ProductId: "",
   });
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [isShow, setIsShow] = useState(false);
+  const [quantity, setQuantity] = React.useState(0);
+  
+  const getProductsList = async () => {
+    await fetch("http://localhost:4000/api/Product/List")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getProductsList();
+    setFilteredProducts(products);
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (prodDet.Size.length > 0) setIsShow(true);
+  }, [prodDet]);
 
   return (
     <div>
@@ -23,39 +50,56 @@ const ProductOverview = () => {
             <div className="flex-w flex-l-m filter-tope-group m-tb-10">
               <button
                 className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1"
-                data-filter="*"
+                onClick={() => {
+                  getProductsList();
+                  setFilteredProducts(products);
+                }}
               >
                 All Products
               </button>
               <button
                 className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                data-filter=".women"
+                onClick={() => {
+                  setFilteredProducts(
+                    products.filter((product) => product.Type === "Women")
+                  );
+                }}
               >
                 Women
               </button>
               <button
                 className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                data-filter=".men"
+                onClick={() => {
+                  setFilteredProducts(
+                    products.filter((product) => product.Type === "Men")
+                  );
+                }}
               >
                 Men
               </button>
               <button
                 className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                data-filter=".bag"
+                onClick={() => {
+                  setFilteredProducts(
+                    products.filter(
+                      (product) => product.Type === "AccessoriesMen"
+                    )
+                  );
+                }}
               >
-                Bag
+                Accessories For Men
               </button>
               <button
                 className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                data-filter=".shoes"
+                onClick={async () => {
+                  setFilteredProducts(
+                    products.filter(
+                      (product) => product.Type === "AccessoriesWomen"
+                    )
+                  );
+                }}
               >
-                Shoes
-              </button>
-              <button
-                className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                data-filter=".watches"
-              >
-                Watches
+                Accessories For Women
               </button>
             </div>
             <div className="flex-w flex-c-m m-tb-10">
@@ -275,24 +319,25 @@ const ProductOverview = () => {
               </div>
             </div>
           </div>
-          <div className="row isotope-grid">
-            <div className="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-              {/* Block2 */}
-              <Product
-                Title="Esprit Ruffle Shirt"
-                Price="16.64"
-                ImgURL="/images/product-01.jpg"
-                setProdDet={setProdDet}
-              ></Product>
-            </div>
-            <div className="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-              <Product
-                Title="Herschel supply"
-                Price="35.31"
-                ImgURL="/images/product-02.jpg"
-                setProdDet={setProdDet}
-              ></Product>
-            </div>
+          <div className="row ">
+            {/* Block2 */}
+            {filteredProducts.map((product) => {
+              return (
+                <div
+                  className="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item"
+                  key={product._id}
+                >
+                  <Product
+                    productId={product._id}
+                    clientId="62cbe2120ba004f033b9924f"
+                    Title={product.Name}
+                    Price={product.Price}
+                    ImgURL={product.ImgURL}
+                    setProdDet={setProdDet}
+                  ></Product>
+                </div>
+              );
+            })}
           </div>
           {/* Load more */}
           <div className="flex-c-m flex-w w-full p-t-45">
@@ -308,10 +353,14 @@ const ProductOverview = () => {
 
       <ProductDetails
         Title={prodDet.Title}
+        isShow={isShow}
+        setIsShow={setIsShow}
         Price={prodDet.Price}
         ImgURL={prodDet.ImgURL}
         Size={prodDet.Size}
         Color={prodDet.Color}
+        ProductId={prodDet.ProductId}
+        ClientId={prodDet.ClientId}
         Description={"Description"}
       />
     </div>

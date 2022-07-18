@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const Cart = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [cartList, setCartList] = useState([]);
+
+  const getCartItems = () => {
+    fetch(
+      "http://localhost:4000/api/Cart/GetCartProudcts/62cbe2120ba004f033b9924f"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setCartItems(data.products);
+        setCartList(data.carts);
+        setIsLoading(false);
+      });
+  };
+
+  const removeCartItem = (_id) => {
+    fetch(`http://localhost:4000/api/Cart/Delete/${_id}`)
+      .then((res) => res.json())
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+   if(!isLoading) getCartItems();
+  }, [isLoading]);
   return (
     <div>
       {/* Cart */}
@@ -15,48 +43,32 @@ const Cart = () => {
           </div>
           <div className="header-cart-content flex-w js-pscroll">
             <ul className="header-cart-wrapitem w-full">
-              <li className="header-cart-item flex-w flex-t m-b-12">
-                <div className="header-cart-item-img">
-                  <img src="images/item-cart-01.jpg" alt="IMG" />
-                </div>
-                <div className="header-cart-item-txt p-t-8">
-                  <a
-                    href="#"
-                    className="header-cart-item-name m-b-18 hov-cl1 trans-04"
+              {cartList.map((item, index) => {
+                getCartItems(item.ProductId);
+                return (
+                  <li
+                    className="header-cart-item flex-w flex-t m-b-12"
+                    key={item._id}
                   >
-                    White Shirt Pleat
-                  </a>
-                  <span className="header-cart-item-info">1 x $19.00</span>
-                </div>
-              </li>
-              <li className="header-cart-item flex-w flex-t m-b-12">
-                <div className="header-cart-item-img">
-                  <img src="images/item-cart-02.jpg" alt="IMG" />
-                </div>
-                <div className="header-cart-item-txt p-t-8">
-                  <a
-                    href="#"
-                    className="header-cart-item-name m-b-18 hov-cl1 trans-04"
-                  >
-                    Converse All Star
-                  </a>
-                  <span className="header-cart-item-info">1 x $39.00</span>
-                </div>
-              </li>
-              <li className="header-cart-item flex-w flex-t m-b-12">
-                <div className="header-cart-item-img">
-                  <img src="images/item-cart-03.jpg" alt="IMG" />
-                </div>
-                <div className="header-cart-item-txt p-t-8">
-                  <a
-                    href="#"
-                    className="header-cart-item-name m-b-18 hov-cl1 trans-04"
-                  >
-                    Nixon Porter Leather
-                  </a>
-                  <span className="header-cart-item-info">1 x $17.00</span>
-                </div>
-              </li>
+                    <button onClick={() => removeCartItem(item._id)}>
+                      <div className="header-cart-item-img">
+                        <img src="images/item-cart-01.jpg" alt="IMG" />
+                      </div>
+                    </button>
+                    <div className="header-cart-item-txt p-t-8">
+                      <a
+                        href="/"
+                        className="header-cart-item-name m-b-18 hov-cl1 trans-04"
+                      >
+                        {cartItems[index].Name}
+                      </a>
+                      <span className="header-cart-item-info">
+                        {item.Quantity} x ${cartItems[index].Price}
+                      </span>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
             <div className="w-full">
               <div className="header-cart-total w-full p-tb-40">

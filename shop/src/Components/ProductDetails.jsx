@@ -1,20 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { InputLabel } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import AlertDialog from "../Components/AlertDialog";
 
 const ProductDetails = (props) => {
-  const [size, setSize] = useState([]);
-  const [color, setColor] = useState([]);
+  const [size, setSize] = useState("");
+  const [color, setColor] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [clicked, setClicked] = useState(false);
+  const addToCart = async () => {
+    await fetch(`http://localhost:4000/api/Cart/Create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        cartProductId: props.ProductId,
+        cartQuantity: quantity,
+        cartClientId: props.ClientId,
+      }),
+    })
+      .then((res) => {
+        res.json();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    setQuantity(1);
+    setClicked(false);
+  }, [props]);
 
   return (
     <div>
-      <div className="wrap-modal1 js-modal1 p-t-60 p-b-20 ">
-        <div className="overlay-modal1 js-hide-modal1" />
+      <div
+        className={
+          props?.isShow === true
+            ? "wrap-modal1 js-modal1 p-t-60 p-b-20 show-modal1 "
+            : "wrap-modal1 js-modal1 p-t-60 p-b-20"
+        }
+      >
+        <div
+          className="overlay-modal1 js-hide-modal1"
+          onClick={() => props.setIsShow(false)}
+        />
         <div className="container">
           <div className="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-            <button className="how-pos3 hov3 trans-04 js-hide-modal1">
+            <button
+              className="how-pos3 hov3 trans-04 js-hide-modal1"
+              onClick={() => props.setIsShow(false)}
+            >
               <img src="images/icons/icon-close.png" alt="CLOSE" />
             </button>
             <div className="row">
@@ -55,8 +92,8 @@ const ProductDetails = (props) => {
                             <Select
                               className="js-select2"
                               labelId="demo-simple-select-label"
-                              id="size-select"
                               value={size}
+                              id="size-select"
                               label="Size"
                               onChange={(e) => setSize(e.target.value)}
                             >
@@ -85,8 +122,8 @@ const ProductDetails = (props) => {
                             <Select
                               className="js-select2"
                               labelId="demo-simple-select-label"
-                              id="color-select"
                               value={color}
+                              id="color-select"
                               label="Choose an option"
                               onChange={(e) => setColor(e.target.value)}
                             >
@@ -107,20 +144,33 @@ const ProductDetails = (props) => {
                     <div className="flex-w flex-r-m p-b-10">
                       <div className="size-204 flex-w flex-m respon6-next">
                         <div className="wrap-num-product flex-w m-r-20 m-tb-10">
-                          <div className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                            <i className="fs-16 zmdi zmdi-minus" />
-                          </div>
+                          <button
+                            onClick={() => setQuantity(Number(quantity) - 1)}
+                          >
+                            <div className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                              <i className="fs-16 zmdi zmdi-minus" />
+                            </div>
+                          </button>
                           <input
                             className="mtext-104 cl3 txt-center num-product"
                             type="number"
                             name="num-product"
-                            defaultValue={1}
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.value)}
                           />
-                          <div className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                            <i className="fs-16 zmdi zmdi-plus" />
-                          </div>
+                          <button
+                            onClick={() => setQuantity(Number(quantity) + 1)}
+                          >
+                            <div className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                              <i className="fs-16 zmdi zmdi-plus" />
+                            </div>
+                          </button>
                         </div>
-                        <button className="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                        <button
+                          className="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+                          // onClick={addToCart}
+                          onClick={() => setClicked(true)}
+                        >
                           Add to cart
                         </button>
                       </div>
@@ -164,6 +214,7 @@ const ProductDetails = (props) => {
           </div>
         </div>
       </div>
+      {clicked === true && <AlertDialog Click="open" />}
     </div>
   );
 };

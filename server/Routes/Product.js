@@ -8,8 +8,8 @@ router.get("/", (req, res) => {
 
 router.get("/List", (req, res) => {
   Product.find({}, (err, products) => {
-    if (err) return console.log(err);
-    res.json(products);
+    if (err) return res.json(err);
+    if (products) res.json(products);
   });
 });
 
@@ -22,6 +22,8 @@ router.post("/Create", (req, res) => {
     Name: req.body.productName,
     Quantity: req.body.productQuantity,
     Price: req.body.productPrice,
+    ImgURL: req.body.productImgURL,
+    Type: req.body.productType,
   });
   product
     .save()
@@ -29,27 +31,27 @@ router.post("/Create", (req, res) => {
       res.json(data);
     })
     .catch((err) => {
-      console.log(err);
+      res.json(err);
     });
 });
 
 router.get("/Delete/:_id", (req, res) => {
   res.send("Deleting Product ...");
   Product.deleteOne({ _id: req.params._id }, (err) => {
-    if (err) return console.log(err);
+    if (err) return res.json(err);
   });
 });
 
 router.get("/GetProductNumbers", (req, res) => {
   Product.countDocuments({}, (err, count) => {
-    if (err) return console.log(err);
+    if (err) return res.json(err);
     res.json(count);
   });
 });
 
 router.get("/GetById/:id", (req, res) => {
   Product.findById(req.params.id, (err, product) => {
-    if (err) return console.log(err);
+    if (err) return res.json(err);
     res.json(product);
   });
 });
@@ -70,7 +72,7 @@ router.post("/Update", async (req, res) => {
 router.get("/GetProductsLikes", (req, res) => {
   var likes = 0;
   Product.find({}, (err, products) => {
-    if (err) return console.log(err);
+    if (err) return res.json(err);
     products.forEach((product) => (likes += product.Likes));
     res.json(likes);
   });
