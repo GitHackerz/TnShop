@@ -1,56 +1,64 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { InputLabel } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import AlertDialog from "../Components/AlertDialog";
-
-const ProductDetails = (props) => {
+import { CartContext } from "../Context/CartContext";
+import axios from "axios";
+const ProductDetails = ({ prodDet, showDetail, setShowDetail }) => {
+  const { loadItem, setLoadItem } = useContext(CartContext);
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [clicked, setClicked] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+  const [rejected, setRejected] = useState(false);
   const addToCart = async () => {
-    await fetch(`http://localhost:4000/api/Cart/Create`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        cartProductId: props.ProductId,
+    try {
+      await axios.post(`http://localhost:4000/api/Cart/Create`, {
+        cartProductId: prodDet.ProductId,
         cartQuantity: quantity,
-        cartClientId: props.ClientId,
-      }),
-    })
-      .then((res) => {
-        res.json();
-      })
-      .catch((err) => {
-        console.log(err);
+        cartClientId: prodDet.ClientId,
       });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
-    setQuantity(1);
-    setClicked(false);
-  }, [props]);
+    if (confirm === true) {
+      addToCart();
+      setClicked(false);
+      setConfirm(false);
+      setShowDetail(false);
+      setQuantity(1);
+      setLoadItem(!loadItem);
+    }
+    if (rejected === true) {
+      setClicked(false);
+      setRejected(false);
+    }
+  }, [confirm, rejected]);
 
   return (
     <div>
       <div
         className={
-          props?.isShow === true
+          showDetail === true
             ? "wrap-modal1 js-modal1 p-t-60 p-b-20 show-modal1 "
             : "wrap-modal1 js-modal1 p-t-60 p-b-20"
         }
       >
         <div
           className="overlay-modal1 js-hide-modal1"
-          onClick={() => props.setIsShow(false)}
+          onClick={() => setShowDetail(false)}
         />
         <div className="container">
           <div className="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
             <button
               className="how-pos3 hov3 trans-04 js-hide-modal1"
-              onClick={() => props.setIsShow(false)}
+              onClick={() => setShowDetail(false)}
             >
               <img src="images/icons/icon-close.png" alt="CLOSE" />
             </button>
@@ -61,10 +69,10 @@ const ProductDetails = (props) => {
                     <div className="wrap-slick3-arrows flex-sb-m flex-w" />
                     <div className="slick3 gallery-lb">
                       <div className="wrap-pic-w pos-relative">
-                        <img src={props.ImgURL} alt="IMG-PRODUCT" />
+                        <img src={prodDet.ImgURL} alt="IMG-PRODUCT" />
                         <a
                           className="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                          href={props.ImgURL}
+                          href={prodDet.ImgURL}
                         >
                           <i className="fa fa-expand" />
                         </a>
@@ -76,10 +84,10 @@ const ProductDetails = (props) => {
               <div className="col-md-6 col-lg-5 p-b-30">
                 <div className="p-r-50 p-t-5 p-lr-0-lg">
                   <h4 className="mtext-105 cl2 js-name-detail p-b-14">
-                    {props.Title}
+                    {prodDet.Title}
                   </h4>
-                  <span className="mtext-106 cl2"> ${props.Price} </span>
-                  <p className="stext-102 cl3 p-t-23">{props.Description}</p>
+                  <span className="mtext-106 cl2"> ${prodDet.Price} </span>
+                  <p className="stext-102 cl3 p-t-23">{prodDet.Description}</p>
                   <div className="p-t-33">
                     <div className="flex-w flex-r-m p-b-10">
                       <div className="size-203 flex-c-m respon6">Size</div>
@@ -97,7 +105,7 @@ const ProductDetails = (props) => {
                               label="Size"
                               onChange={(e) => setSize(e.target.value)}
                             >
-                              {props.Size.map((size, index) => {
+                              {prodDet.Size.map((size, index) => {
                                 return (
                                   <MenuItem key={index} value={size}>
                                     Size {size}
@@ -127,7 +135,7 @@ const ProductDetails = (props) => {
                               label="Choose an option"
                               onChange={(e) => setColor(e.target.value)}
                             >
-                              {props.Color.map((color, index) => {
+                              {prodDet.Color.map((color, index) => {
                                 return (
                                   <MenuItem key={index} value={color}>
                                     {color}
@@ -168,8 +176,9 @@ const ProductDetails = (props) => {
                         </div>
                         <button
                           className="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-                          // onClick={addToCart}
-                          onClick={() => setClicked(true)}
+                          onClick={() => {
+                            setClicked(true);
+                          }}
                         >
                           Add to cart
                         </button>
@@ -214,7 +223,13 @@ const ProductDetails = (props) => {
           </div>
         </div>
       </div>
-      {clicked === true && <AlertDialog Click="open" />}
+      {clicked && (
+        <AlertDialog
+          Click="open"
+          setConfirm={setConfirm}
+          setRejected={setRejected}
+        />
+      )}
     </div>
   );
 };

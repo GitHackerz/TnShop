@@ -1,34 +1,43 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import { CartContext } from "../Context/CartContext";
+import axios from "axios";
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
+  const { loadItem, setLoadItem } = useContext(CartContext);
+
   const [isLoading, setIsLoading] = useState(true);
   const [cartList, setCartList] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
 
-  const getCartItems = () => {
-    fetch(
-      "http://localhost:4000/api/Cart/GetCartProudcts/62cbe2120ba004f033b9924f"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCartItems(data.products);
-        setCartList(data.carts);
-        setIsLoading(false);
-      });
+  var TotalPrice = 0;
+
+  const getCartItems = async () => {
+    try {
+      const resp = await axios.get(
+        "http://localhost:4000/api/Cart/GetCartProudcts/62cbe2120ba004f033b9924f"
+      );
+      setCartProducts(resp.data.products);
+      setCartList(resp.data.carts);
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const removeCartItem = (_id) => {
-    fetch(`http://localhost:4000/api/Cart/Delete/${_id}`)
-      .then((res) => res.json())
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch((err) => console.log(err));
+    try {
+      axios.get(`http://localhost:4000/api/Cart/Delete/${_id}`);
+      getCartItems();
+      setLoadItem(!loadItem);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
-   if(!isLoading) getCartItems();
-  }, [isLoading]);
+    getCartItems();
+  }, [isLoading, loadItem]);
+
   return (
     <div>
       {/* Cart */}
@@ -44,7 +53,7 @@ const Cart = () => {
           <div className="header-cart-content flex-w js-pscroll">
             <ul className="header-cart-wrapitem w-full">
               {cartList.map((item, index) => {
-                getCartItems(item.ProductId);
+                TotalPrice += item.Quantity * cartProducts[index].Price;
                 return (
                   <li
                     className="header-cart-item flex-w flex-t m-b-12"
@@ -52,7 +61,7 @@ const Cart = () => {
                   >
                     <button onClick={() => removeCartItem(item._id)}>
                       <div className="header-cart-item-img">
-                        <img src="images/item-cart-01.jpg" alt="IMG" />
+                        <img src={cartProducts[index].ImgURL} alt="IMG" />
                       </div>
                     </button>
                     <div className="header-cart-item-txt p-t-8">
@@ -60,10 +69,10 @@ const Cart = () => {
                         href="/"
                         className="header-cart-item-name m-b-18 hov-cl1 trans-04"
                       >
-                        {cartItems[index].Name}
+                        {cartProducts[index].Name}
                       </a>
                       <span className="header-cart-item-info">
-                        {item.Quantity} x ${cartItems[index].Price}
+                        {item.Quantity} x ${cartProducts[index].Price}
                       </span>
                     </div>
                   </li>
@@ -72,15 +81,15 @@ const Cart = () => {
             </ul>
             <div className="w-full">
               <div className="header-cart-total w-full p-tb-40">
-                Total: $75.00
+                Total: ${TotalPrice}
               </div>
               <div className="header-cart-buttons flex-w w-full">
-                <a
-                  href="shoping-cart.html"
+                <Link
+                  to="CartDetail"
                   className="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10"
                 >
                   View Cart
-                </a>
+                </Link>
                 <a
                   href="shoping-cart.html"
                   className="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10"

@@ -20,19 +20,12 @@ export const ClientAdd = () => {
       clientPhone,
       clientAge,
     };
-    fetch("/api/Client/Create", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(client),
-    })
-      .then((res) => {
-        res.json();
-        setSubmitted(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error While Adding Client");
-      });
+    try {
+      axios.post("/api/Client/Create", client).then(() => setSubmitted(true));
+    } catch (e) {
+      setError("Error While Adding Client");
+      console.log(e);
+    }
   };
   return (
     <div className="row">

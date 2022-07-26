@@ -8,6 +8,12 @@ router.get("/", (req, res) => {
   res.send("Welcome To Cart API");
 });
 
+router.get("/List", (req, res) => {
+  Cart.find({}, (err, carts) => {
+    if (err) return console.log(err);
+    res.json(carts);
+  });
+});
 router.get("/List/:ClientId", (req, res) => {
   Cart.find({ ClientId: req.params.ClientId }, (err, carts) => {
     if (err) return console.log(err);
@@ -71,6 +77,25 @@ router.get("/GetCartProudcts/:ClientId", (req, res) => {
       }
     );
   });
+});
+
+router.post("/UpdateCart", async (req, res) => {
+  const update = {
+    Quantity: req.body.cartQuantity,
+  };
+  const filter = {
+    ClientId: req.body.cartClientId,
+    ProductId: req.body.cartProductId,
+  };
+
+  console.log(update.Quantity);
+  try {
+    await Cart.updateOne(filter, update);
+    res.json({ message: "Cart Updated" });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: "Error updating Cart" });
+  }
 });
 
 module.exports = router;

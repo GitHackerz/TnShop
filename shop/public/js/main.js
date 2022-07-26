@@ -30,19 +30,19 @@ $(document).ready(function () {
     }
 
     if ($(window).scrollTop() > posWrapHeader) {
-      $(headerDesktop).addClass("fix-menu-desktop");
+      // $(headerDesktop).addClass("fix-menu-desktop");
       $(wrapMenu).css("top", 0);
     } else {
-      $(headerDesktop).removeClass("fix-menu-desktop");
+      // $(headerDesktop).removeClass("fix-menu-desktop");
       $(wrapMenu).css("top", posWrapHeader - $(this).scrollTop());
     }
 
     $(window).on("scroll", function () {
       if ($(this).scrollTop() > posWrapHeader) {
-        $(headerDesktop).addClass("fix-menu-desktop");
+        // $(headerDesktop).addClass("fix-menu-desktop");
         $(wrapMenu).css("top", 0);
       } else {
-        $(headerDesktop).removeClass("fix-menu-desktop");
+        // $(headerDesktop).removeClass("fix-menu-desktop");
         $(wrapMenu).css("top", posWrapHeader - $(this).scrollTop());
       }
     });
@@ -180,20 +180,20 @@ $(document).ready(function () {
 
     /*==================================================================
     [ +/- num product ]*/
-    $(".btn-num-product-down").on("click", function () {
-      var numProduct = Number($(this).next().val());
-      if (numProduct > 0)
-        $(this)
-          .next()
-          .val(numProduct - 1);
-    });
+    // $(".btn-num-product-down").on("click", function () {
+    //   var numProduct = Number($(this).next().val());
+    //   if (numProduct > 0)
+    //     $(this)
+    //       .next()
+    //       .val(numProduct - 1);
+    // });
 
-    $(".btn-num-product-up").on("click", function () {
-      var numProduct = Number($(this).prev().val());
-      $(this)
-        .prev()
-        .val(numProduct + 1);
-    });
+    // $(".btn-num-product-up").on("click", function () {
+    //   var numProduct = Number($(this).prev().val());
+    //   $(this)
+    //     .prev()
+    //     .val(numProduct + 1);
+    // });
 
     /*==================================================================
     [ Rating ]*/

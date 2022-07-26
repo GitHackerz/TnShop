@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { CartContext } from "../Context/CartContext";
 
 const Header = () => {
+  const [cartNum, setCartNum] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const { loadItem } = useContext(CartContext);
+
+  const getCartNum = () => {
+    fetch(
+      `http://localhost:4000/api/Cart/GetCartNumbers/62cbe2120ba004f033b9924f`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setCartNum(data);
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    getCartNum();
+  }, [loadItem, isLoading]);
+
   return (
     <div>
       <header>
         {/* Header desktop */}
-        <div className="container-menu-desktop">
+        <div className="container-menu-desktop fix-menu-desktop">
           {/* Topbar */}
           <div className="top-bar">
             <div className="content-topbar flex-sb-m h-full container">
@@ -29,19 +49,24 @@ const Header = () => {
               </div>
             </div>
           </div>
-          <div className="wrap-menu-desktop">
+          <div className="wrap-menu-desktop how-shadow1 fix-menu-desktop">
             <nav className="limiter-menu-desktop container">
               {/* Logo desktop */}
-              <a href="/" className="logo">
-                <img src="images/icons/logo-01.png" alt="IMG-LOGO" />
-              </a>
+              {/* <img src="images/icons/logo-01.png" alt="IMG-LOGO" /> */}
+              <div
+                className="logo"
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "25px",
+                  fontFamily: "Roboto, sans-serif",
+                }}
+              >
+                <span style={{ color: "#E63333" }}>TN</span>&nbsp;Shop
+              </div>
               {/* Menu desktop */}
               <div className="menu-desktop">
                 <ul className="main-menu">
                   <li>
-                    {/* <NavLink activeClassName="active-menu" to="/">
-                      Home
-                    </NavLink> */}
                     <NavLink
                       className={(navData) =>
                         navData.isActive ? "active-menu" : ""
@@ -50,17 +75,6 @@ const Header = () => {
                     >
                       Home
                     </NavLink>
-                    {/* <ul className="sub-menu">
-                      <li>
-                        <a href="index.html">Homepage 1</a>
-                      </li>
-                      <li>
-                        <a href="home-02.html">Homepage 2</a>
-                      </li>
-                      <li>
-                        <a href="home-03.html">Homepage 3</a>
-                      </li>
-                    </ul> */}
                   </li>
                   <li>
                     <NavLink
@@ -70,26 +84,6 @@ const Header = () => {
                       to="/Product"
                     >
                       Shop
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className={(navData) =>
-                        navData.isActive ? "active-menu" : ""
-                      }
-                      to="Cart"
-                    >
-                      Features
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className={(navData) =>
-                        navData.isActive ? "active-menu" : ""
-                      }
-                      to="Blog"
-                    >
-                      Blog
                     </NavLink>
                   </li>
                   <li>
@@ -122,7 +116,7 @@ const Header = () => {
 
                 <div
                   className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                  data-notify="2"
+                  data-notify={cartNum}
                 >
                   <i className="zmdi zmdi-shopping-cart"></i>
                 </div>
@@ -158,7 +152,7 @@ const Header = () => {
               <i className="zmdi zmdi-shopping-cart"></i>
             </div>
             <a
-              href="#"
+              href="/"
               className="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
               data-notify="0"
             >

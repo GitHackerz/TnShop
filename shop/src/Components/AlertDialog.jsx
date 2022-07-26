@@ -3,8 +3,7 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import { Typography } from "@mui/material";
 
 const AlertDialog = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -14,6 +13,7 @@ const AlertDialog = (props) => {
   };
 
   const handleClose = () => {
+    props.setRejected(true);
     setOpen(false);
   };
 
@@ -32,19 +32,38 @@ const AlertDialog = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
+        {/* <DialogTitle id="alert-dialog-title">
           {"Use Google's location service?"}
-        </DialogTitle>
+        </DialogTitle> */}
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
+          <Typography variant="h6">
+            Do you wart To Confirm your payment ?
+          </Typography>
+          <Typography variant="subtitle2">
+            Click Yes To Confirm Or No if Not
+          </Typography>
         </DialogContent>
+
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              handleClose();
+            }}
+          >
+            No
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              props.setConfirm(true);
+              handleClose();
+            }}
+            autoFocus
+          >
+            Yes
           </Button>
         </DialogActions>
       </Dialog>

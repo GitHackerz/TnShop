@@ -5,6 +5,7 @@ import {
   signInWithPopup,
   FacebookAuthProvider,
 } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBqivYZbHAkDpwdSCXDFYi8qkQdpy-3UiI",
@@ -15,21 +16,16 @@ const firebaseConfig = {
   appId: "1:523338854993:web:e1bcea3020642d0f167e70",
   measurementId: "G-B6NL4DB929",
 };
-// console.log(process.env.REACT_APP_FIREBASE_API_KEY)
-// const firebaseConfig = {
-//   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-//   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-//   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-//   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-//   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-//   appId: process.env.REACT_APP_FIREBASE_APP_ID,
-// };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+export const Storage = getStorage();
+
 export const auth = getAuth(app);
 
 const GoogleProvider = new GoogleAuthProvider();
+const FacebookProvider = new FacebookAuthProvider();
 
 export const signInWithGoogle = async () => {
   return signInWithPopup(auth, GoogleProvider)
@@ -51,7 +47,6 @@ export const signInWithGoogle = async () => {
       console.log(error);
     });
 };
-const FacebookProvider = new FacebookAuthProvider();
 
 export const signInWithFacebook = async () => {
   signInWithPopup(auth, FacebookProvider)

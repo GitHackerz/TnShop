@@ -1,13 +1,37 @@
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import React from "react";
+import { Storage as storage } from "../../firebase";
 
 export const ProductAdd = () => {
   const [productName, setProductName] = React.useState("");
   const [productPrice, setProductPrice] = React.useState("");
   const [productQuantity, setProductQuantity] = React.useState("");
+  const [productImage, setProductImage] = React.useState("");
   const [Submitted, setSubmitted] = React.useState(false);
+  const [progress, setProgress] = React.useState(0);
   const [Error, setError] = React.useState("");
+
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    const storageRef = ref(storage, `files/${productImage.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, productImage);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        setProgress(prog);
+      },
+      (err) => console.log(err),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          console.log(url);
+        });
+      }
+    );
     const product = {
       productName,
       productPrice,
@@ -71,6 +95,17 @@ export const ProductAdd = () => {
                     value={productPrice}
                     onChange={(e) => setProductPrice(e.target.value)}
                   />
+                </div>
+                <div className="form-group">
+                  <label>Image</label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    placeholder="Image Product"
+                    required
+                    onChange={(e) => setProductImage(e.target.files[0])}
+                  />
+                  {progress}
                 </div>
                 <div className="d-flex justify-content-center">
                   <button type="submit" className="btn btn-primary w-50 mt-4">
